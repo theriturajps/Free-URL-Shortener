@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>Redirecting...</title>
+    <style>html{scroll-behavior: smooth;}body {display: flex;justify-content: center;align-items: center;height: 100vh;margin: 0;font-family: Arial, sans-serif;background-color: #f0f0f0;text-align: center;}.timer {font-size: 2rem;color: #333;}.countdown {font-size: 3rem;font-weight: bold;color: #e74c3c;margin-top: 20px;animation: fadeInOut 1s ease-in-out infinite;}@keyframes fadeInOut {0%, 100% { opacity: 1; }50% { opacity: 0.5; }}</style>
     <script>
       /**
        * Configuration goes here
@@ -73,8 +74,29 @@
         xhr.send();
       }
 
-      redirect();
+      function startCountdown() {
+        var countdownElement = document.getElementById('countdown');
+        var timeLeft = 15; // time in seconds
+
+        function updateCountdown() {
+          if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            redirect(); // Call the redirect function when the countdown is complete
+          } else {
+            countdownElement.textContent = timeLeft + ' seconds remaining';
+            timeLeft--;
+          }
+        }
+
+        var timerInterval = setInterval(updateCountdown, 1000); // Update every second
+      }
+
+      window.onload = startCountdown; // Start countdown when the page loads
     </script>
   </head>
-  <body></body>
+  <body>
+    <div class="timer">
+      <div id="countdown" class="countdown">Redirecting...</div>
+    </div>
+  </body>
 </html>
